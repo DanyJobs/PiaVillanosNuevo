@@ -16,6 +16,9 @@ public class Entrenadores_Rango extends javax.swing.JFrame {
      */
     public Entrenadores_Rango() {
         initComponents();
+           this.setResizable(false);	
+             //Que aparezca en medio
+	     this.setLocationRelativeTo(null);
     }
 
     /**

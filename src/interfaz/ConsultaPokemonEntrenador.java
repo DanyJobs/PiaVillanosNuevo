@@ -16,6 +16,9 @@ public class ConsultaPokemonEntrenador extends javax.swing.JFrame {
      */
     public ConsultaPokemonEntrenador() {
         initComponents();
+           this.setResizable(false);	
+             //Que aparezca en medio
+	   this.setLocationRelativeTo(null);
     }
 
     /**

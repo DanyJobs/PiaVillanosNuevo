@@ -16,6 +16,9 @@ public class Ranking_Pokemon extends javax.swing.JFrame {
      */
     public Ranking_Pokemon() {
         initComponents();
+           this.setResizable(false);	
+             //Que aparezca en medio
+	     this.setLocationRelativeTo(null);
     }
 
     /**

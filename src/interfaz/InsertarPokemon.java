@@ -28,7 +28,10 @@ public class InsertarPokemon extends javax.swing.JFrame {
      * Creates new form ConsultaMedallas
      */
     public InsertarPokemon() {
-       initComponents();             
+       initComponents();   
+          this.setResizable(false);	
+             //Que aparezca en medio
+	     this.setLocationRelativeTo(null);
        Combo llenar = new Combo();       
        llenar.llenar_combo(cmbTipo,"Select * from TipoPokemon","IdTipoPoke","nombre");
     }
@@ -297,7 +300,7 @@ public class InsertarPokemon extends javax.swing.JFrame {
         peso = Integer.parseInt(txtFPeso.getText().trim());
         ps = Integer.parseInt(txtFPs.getText().trim());
         tipo =cmbTipo.getItemAt(cmbTipo.getSelectedIndex()).getCodigo();        
-        mensaje=Procedimientos.AgregarPokemon(nombre,preevolucion,evolucion,altura,peso,tipo,ps);
+        mensaje=Procedimientos.AgregarPokemon(nombre,preevolucion,evolucion,altura,peso,ps,tipo);
         JOptionPane.showMessageDialog(null, mensaje);
         txtFNombre.setText("");
         txtFAltura.setText("");

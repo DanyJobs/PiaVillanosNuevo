@@ -16,6 +16,9 @@ public class Reportes_Menu extends javax.swing.JFrame {
      */
     public Reportes_Menu() {
         initComponents();
+           this.setResizable(false);	
+             //Que aparezca en medio
+	     this.setLocationRelativeTo(null);
     }
 
     /**

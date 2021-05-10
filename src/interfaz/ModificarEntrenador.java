@@ -5,6 +5,13 @@
  */
 package interfaz;
 
+import Clases.Combo;
+import Clases.Procedimientos;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Date;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author yarel
@@ -16,7 +23,11 @@ public class ModificarEntrenador extends javax.swing.JFrame {
      */
     public ModificarEntrenador() {
         initComponents();
+        this.setResizable(false);
+        //Que aparezca en medio
         this.setLocationRelativeTo(null);
+        Combo llenar = new Combo();
+        llenar.llenar_combo(cmbCiudad, "Select * from Ciudad", "IdCiudad", "nombre");
     }
 
     /**
@@ -33,17 +44,17 @@ public class ModificarEntrenador extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
         txtFIdEntrenador = new javax.swing.JTextField();
         txtFNombre = new javax.swing.JTextField();
         txtFApPaterno = new javax.swing.JTextField();
         txtFDireccion = new javax.swing.JTextField();
         txtFApMaterno = new javax.swing.JTextField();
-        txtFCiudad = new javax.swing.JTextField();
         txtFTelefono = new javax.swing.JTextField();
-        txtIdEstado = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        cmbCiudad = new javax.swing.JComboBox<>();
+        jLabel17 = new javax.swing.JLabel();
+        jFechaNac = new com.toedter.calendar.JDateChooser();
         jLabel10 = new javax.swing.JLabel();
         btnBuscar = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
@@ -53,9 +64,6 @@ public class ModificarEntrenador extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
 
@@ -67,7 +75,7 @@ public class ModificarEntrenador extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         jLabel1.setText("idEntrenador:");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(20, 30, 80, 16);
+        jLabel1.setBounds(20, 20, 80, 20);
 
         jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         jLabel2.setText("Nombre:");
@@ -77,84 +85,97 @@ public class ModificarEntrenador extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         jLabel3.setText("Apellido Paterno:");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(20, 100, 110, 16);
+        jLabel3.setBounds(20, 110, 110, 16);
 
         jLabel5.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         jLabel5.setText("Apellido Materno:");
         getContentPane().add(jLabel5);
-        jLabel5.setBounds(20, 130, 110, 16);
+        jLabel5.setBounds(20, 150, 110, 16);
 
         jLabel6.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         jLabel6.setText("Dirección:");
         getContentPane().add(jLabel6);
-        jLabel6.setBounds(20, 160, 110, 16);
-
-        jLabel7.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        jLabel7.setText("Ciudad:");
-        getContentPane().add(jLabel7);
-        jLabel7.setBounds(20, 190, 70, 16);
+        jLabel6.setBounds(20, 190, 110, 16);
 
         jLabel8.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         jLabel8.setText("Telefono:");
         getContentPane().add(jLabel8);
-        jLabel8.setBounds(20, 220, 60, 16);
-
-        jLabel9.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        jLabel9.setText("idEstado:");
-        getContentPane().add(jLabel9);
-        jLabel9.setBounds(20, 250, 70, 16);
+        jLabel8.setBounds(20, 270, 60, 16);
 
         txtFIdEntrenador.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        txtFIdEntrenador.setPreferredSize(new java.awt.Dimension(8, 22));
         getContentPane().add(txtFIdEntrenador);
-        txtFIdEntrenador.setBounds(130, 30, 190, 22);
+        txtFIdEntrenador.setBounds(130, 10, 100, 30);
 
         txtFNombre.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        txtFNombre.setPreferredSize(new java.awt.Dimension(8, 22));
         getContentPane().add(txtFNombre);
-        txtFNombre.setBounds(130, 70, 190, 22);
+        txtFNombre.setBounds(130, 60, 140, 30);
 
         txtFApPaterno.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        txtFApPaterno.setPreferredSize(new java.awt.Dimension(8, 22));
         txtFApPaterno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtFApPaternoActionPerformed(evt);
             }
         });
         getContentPane().add(txtFApPaterno);
-        txtFApPaterno.setBounds(130, 100, 190, 22);
+        txtFApPaterno.setBounds(130, 100, 140, 30);
 
         txtFDireccion.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         getContentPane().add(txtFDireccion);
-        txtFDireccion.setBounds(130, 160, 190, 22);
+        txtFDireccion.setBounds(130, 180, 140, 30);
 
         txtFApMaterno.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        txtFApMaterno.setPreferredSize(new java.awt.Dimension(8, 22));
         getContentPane().add(txtFApMaterno);
-        txtFApMaterno.setBounds(130, 130, 190, 22);
-
-        txtFCiudad.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        getContentPane().add(txtFCiudad);
-        txtFCiudad.setBounds(130, 190, 190, 22);
+        txtFApMaterno.setBounds(130, 140, 140, 30);
 
         txtFTelefono.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         getContentPane().add(txtFTelefono);
-        txtFTelefono.setBounds(130, 220, 190, 22);
+        txtFTelefono.setBounds(130, 260, 140, 30);
 
-        txtIdEstado.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        getContentPane().add(txtIdEstado);
-        txtIdEstado.setBounds(130, 250, 190, 22);
+        jLabel15.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        jLabel15.setText("Ciudad:");
+        getContentPane().add(jLabel15);
+        jLabel15.setBounds(20, 310, 46, 16);
+
+        cmbCiudad.setFont(new java.awt.Font("Century Gothic", 1, 11)); // NOI18N
+        cmbCiudad.setInheritsPopupMenu(true);
+        cmbCiudad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbCiudadActionPerformed(evt);
+            }
+        });
+        getContentPane().add(cmbCiudad);
+        cmbCiudad.setBounds(130, 300, 140, 30);
+
+        jLabel17.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        jLabel17.setText("Fec. Nacimiento:");
+        getContentPane().add(jLabel17);
+        jLabel17.setBounds(20, 230, 99, 16);
+        getContentPane().add(jFechaNac);
+        jFechaNac.setBounds(130, 220, 140, 30);
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/panel1.png"))); // NOI18N
         getContentPane().add(jLabel10);
-        jLabel10.setBounds(10, 60, 320, 220);
+        jLabel10.setBounds(10, 50, 270, 290);
 
         btnBuscar.setBackground(java.awt.Color.orange);
         btnBuscar.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         btnBuscar.setForeground(new java.awt.Color(102, 62, 0));
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnBuscar);
-        btnBuscar.setBounds(340, 60, 73, 23);
+        btnBuscar.setBounds(290, 20, 73, 23);
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/BotonBuscar.png"))); // NOI18N
         getContentPane().add(jLabel11);
-        jLabel11.setBounds(360, 10, 40, 50);
+        jLabel11.setBounds(240, 0, 40, 50);
 
         btnMenu.setBackground(java.awt.Color.orange);
         btnMenu.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
@@ -171,7 +192,7 @@ public class ModificarEntrenador extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnMenu);
-        btnMenu.setBounds(150, 340, 70, 23);
+        btnMenu.setBounds(290, 330, 70, 23);
 
         btnRegresar.setBackground(java.awt.Color.orange);
         btnRegresar.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
@@ -183,41 +204,35 @@ public class ModificarEntrenador extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnRegresar);
-        btnRegresar.setBounds(250, 340, 100, 23);
+        btnRegresar.setBounds(280, 230, 100, 23);
 
         btnModificar.setBackground(java.awt.Color.orange);
         btnModificar.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         btnModificar.setForeground(new java.awt.Color(102, 62, 0));
         btnModificar.setText("Modificar");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnModificar);
-        btnModificar.setBounds(20, 340, 100, 23);
+        btnModificar.setBounds(280, 140, 100, 23);
 
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/BotonModificar.png"))); // NOI18N
         getContentPane().add(jLabel12);
-        jLabel12.setBounds(50, 290, 50, 50);
+        jLabel12.setBounds(300, 80, 50, 50);
 
         jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/BotonMenu.png"))); // NOI18N
         getContentPane().add(jLabel13);
-        jLabel13.setBounds(160, 290, 50, 50);
+        jLabel13.setBounds(300, 270, 50, 50);
 
         jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/BotonRegresar.png"))); // NOI18N
         getContentPane().add(jLabel14);
-        jLabel14.setBounds(280, 290, 50, 50);
-
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
-
-        getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(460, 110, 220, 110);
-
-        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/panel1.png"))); // NOI18N
-        getContentPane().add(jLabel15);
-        jLabel15.setBounds(450, 100, 230, 130);
+        jLabel14.setBounds(300, 170, 50, 50);
 
         jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/tumblr_mjtrowPBFL1qkk63ho1_500 (1).gif"))); // NOI18N
         getContentPane().add(jLabel16);
-        jLabel16.setBounds(440, 220, 200, 150);
+        jLabel16.setBounds(500, 200, 200, 150);
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/18ActualizarEntrenador.png"))); // NOI18N
         getContentPane().add(jLabel4);
@@ -236,25 +251,98 @@ public class ModificarEntrenador extends javax.swing.JFrame {
 
     private void btnMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMenuMouseClicked
         // TODO add your handling code here:
-        PantallaPrincipal pantPrincipal= new PantallaPrincipal();
+        PantallaPrincipal pantPrincipal = new PantallaPrincipal();
         pantPrincipal.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnMenuMouseClicked
 
     private void btnRegresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegresarMouseClicked
         // TODO add your handling code here:
-        ActualizarEntrenador actEnt= new ActualizarEntrenador();
+        ActualizarEntrenador actEnt = new ActualizarEntrenador();
         actEnt.setVisible(true);
         this.dispose();
-       
+
     }//GEN-LAST:event_btnRegresarMouseClicked
+
+    private void cmbCiudadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCiudadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbCiudadActionPerformed
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        int idEntrenador;
+        String nombre;
+        String App;
+        String Apm;
+        String tel;
+        String dir;
+        int ciudad;
+        String mensaje;
+
+        if (txtFIdEntrenador.getText().isEmpty() || txtFNombre.getText().isEmpty() || txtFApPaterno.getText().isEmpty() || txtFApMaterno.getText().isEmpty()
+                || jFechaNac.getDate() == null || txtFTelefono.getText().isEmpty() || txtFDireccion.getText().isEmpty()
+                || cmbCiudad.getSelectedIndex() == 0 || cmbCiudad.getSelectedItem().equals("Seleccionar")) {
+            JOptionPane.showMessageDialog(null, "Favor de llenar todos los datos", "Error de introduccion de datos", JOptionPane.ERROR_MESSAGE);
+        } else {
+            try {
+                idEntrenador = Integer.parseInt(txtFIdEntrenador.getText().trim());
+                nombre = txtFNombre.getText().trim();
+                App = txtFApPaterno.getText().trim();
+                Apm = txtFApMaterno.getText().trim();
+                Date date = jFechaNac.getDate();
+                long d = date.getTime();
+                java.sql.Date fechaNac = new java.sql.Date(d);
+                dir = txtFDireccion.getText().trim();
+                tel = txtFTelefono.getText().trim();
+                ciudad = cmbCiudad.getItemAt(cmbCiudad.getSelectedIndex()).getCodigo();
+                mensaje = Procedimientos.ModificarEntrenador(idEntrenador, nombre, App, Apm, fechaNac, tel, dir, ciudad);
+                JOptionPane.showMessageDialog(null, mensaje);
+                txtFIdEntrenador.setText("");
+                txtFNombre.setText("");
+                txtFDireccion.setText("");
+                txtFApPaterno.setText("");
+                txtFApMaterno.setText("");
+                txtFTelefono.setText("");
+                jFechaNac.setDate(null);
+                cmbCiudad.setSelectedIndex(0);
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "ERROR " + e.getMessage(), "Error de conexion", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        String vDato = txtFIdEntrenador.getText().trim();
+        if (vDato.equals("")) {
+            JOptionPane.showMessageDialog(null, "Favor de llenar todos los datos", "Error de introduccion de datos", JOptionPane.ERROR_MESSAGE);
+        } else {
+            try {
+                String sql = "SELECT * From Entrenador where idEntrenador = '" + vDato + "'";
+                ResultSet consulta = Procedimientos.BuscarConsultas(sql);
+                if (consulta != null && consulta.next()) {
+                    txtFIdEntrenador.setText(consulta.getString("idEntrenador"));
+                    txtFNombre.setText(consulta.getString("nombre"));
+                    txtFApPaterno.setText(consulta.getString("ApellidoP"));
+                    txtFApMaterno.setText(consulta.getString("ApellidoM"));
+                    jFechaNac.setDate(consulta.getDate("FechaN"));
+                    txtFTelefono.setText(consulta.getString("NCelular"));
+                    txtFDireccion.setText(consulta.getString("Direccion"));
+                    cmbCiudad.setSelectedIndex(consulta.getInt("idCiudad"));
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se encontro resultados", "Error de conexion", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "ERROR " + e.getMessage(), "Error de conexion", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        //<editor-fold defaultstate="collaciudaded" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
@@ -289,6 +377,8 @@ public class ModificarEntrenador extends javax.swing.JFrame {
     private javax.swing.JButton btnMenu;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnRegresar;
+    private javax.swing.JComboBox<Combo> cmbCiudad;
+    private com.toedter.calendar.JDateChooser jFechaNac;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -297,23 +387,18 @@ public class ModificarEntrenador extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField txtFApMaterno;
     private javax.swing.JTextField txtFApPaterno;
-    private javax.swing.JTextField txtFCiudad;
     private javax.swing.JTextField txtFDireccion;
     private javax.swing.JTextField txtFIdEntrenador;
     private javax.swing.JTextField txtFNombre;
     private javax.swing.JTextField txtFTelefono;
-    private javax.swing.JTextField txtIdEstado;
     // End of variables declaration//GEN-END:variables
 }

@@ -16,6 +16,9 @@ public class Pokemon_tipo extends javax.swing.JFrame {
      */
     public Pokemon_tipo() {
         initComponents();
+           this.setResizable(false);	
+             //Que aparezca en medio
+	     this.setLocationRelativeTo(null);
     }
 
     /**

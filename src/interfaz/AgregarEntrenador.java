@@ -15,8 +15,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import Clases.Combo;
+import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
+import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
 import java.awt.event.KeyEvent;
 import java.text.DecimalFormat;
+import java.util.Date;
 /**
  *
  * @author yarel
@@ -28,7 +31,9 @@ public class AgregarEntrenador extends javax.swing.JFrame {
      */
     public AgregarEntrenador() {
         initComponents();
-        this.setLocationRelativeTo(null);
+          this.setResizable(false);	
+             //Que aparezca en medio
+	     this.setLocationRelativeTo(null);;
        Combo llenar = new Combo();       
       llenar.llenar_combo(cmbCiudad,"Select * from Ciudad","idCiudad","nombre");
     }
@@ -47,17 +52,17 @@ public class AgregarEntrenador extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        txtFFecNac = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         txtFNombre = new javax.swing.JTextField();
         txtFApm = new javax.swing.JTextField();
         txtFDireccion = new javax.swing.JTextField();
         txtTel = new javax.swing.JTextField();
         txtFapp = new javax.swing.JTextField();
+        cmbCiudad = new javax.swing.JComboBox<>();
+        jFechaNac = new com.toedter.calendar.JDateChooser();
         jLabel10 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        cmbCiudad = new javax.swing.JComboBox<>();
         btnAgregar = new javax.swing.JButton();
         btnMenu = new javax.swing.JButton();
         btnRegresar = new javax.swing.JButton();
@@ -79,7 +84,7 @@ public class AgregarEntrenador extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         jLabel6.setText("Dirección:");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, -1, -1));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         jLabel7.setText("Ciudad:");
@@ -89,17 +94,9 @@ public class AgregarEntrenador extends javax.swing.JFrame {
         jLabel15.setText("Fec. Nacimiento:");
         getContentPane().add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, -1, -1));
 
-        txtFFecNac.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        txtFFecNac.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFFecNacActionPerformed(evt);
-            }
-        });
-        getContentPane().add(txtFFecNac, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 190, 170, 30));
-
         jLabel8.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         jLabel8.setText("Telefono:");
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, -1, -1));
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, -1, -1));
 
         txtFNombre.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         txtFNombre.addActionListener(new java.awt.event.ActionListener() {
@@ -123,7 +120,7 @@ public class AgregarEntrenador extends javax.swing.JFrame {
                 txtFDireccionActionPerformed(evt);
             }
         });
-        getContentPane().add(txtFDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 230, 170, 30));
+        getContentPane().add(txtFDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 270, 170, 30));
 
         txtTel.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         txtTel.addActionListener(new java.awt.event.ActionListener() {
@@ -131,7 +128,12 @@ public class AgregarEntrenador extends javax.swing.JFrame {
                 txtTelActionPerformed(evt);
             }
         });
-        getContentPane().add(txtTel, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 270, 170, 30));
+        txtTel.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTelKeyTyped(evt);
+            }
+        });
+        getContentPane().add(txtTel, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 230, 170, 30));
 
         txtFapp.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         txtFapp.addActionListener(new java.awt.event.ActionListener() {
@@ -140,6 +142,16 @@ public class AgregarEntrenador extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtFapp, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 110, 170, 30));
+
+        cmbCiudad.setFont(new java.awt.Font("Century Gothic", 1, 11)); // NOI18N
+        cmbCiudad.setInheritsPopupMenu(true);
+        cmbCiudad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbCiudadActionPerformed(evt);
+            }
+        });
+        getContentPane().add(cmbCiudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 320, 170, -1));
+        getContentPane().add(jFechaNac, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 190, 170, 30));
 
         jLabel10.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         jLabel10.setText("Apellido Materno:");
@@ -151,15 +163,6 @@ public class AgregarEntrenador extends javax.swing.JFrame {
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/BotonAgregar.png"))); // NOI18N
         getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 10, 50, 50));
-
-        cmbCiudad.setFont(new java.awt.Font("Century Gothic", 1, 11)); // NOI18N
-        cmbCiudad.setInheritsPopupMenu(true);
-        cmbCiudad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbCiudadActionPerformed(evt);
-            }
-        });
-        getContentPane().add(cmbCiudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 320, 170, -1));
 
         btnAgregar.setBackground(java.awt.Color.orange);
         btnAgregar.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
@@ -246,54 +249,54 @@ public class AgregarEntrenador extends javax.swing.JFrame {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
 
-//       String nombre;
-//       String app;
-//       String apm;
-//       String fecNac;
-//       String dir;
-//       int ciudad;
-//       int telefono;
-//       int estado;
-//       DecimalFormat df = new DecimalFormat("#######.##");
-//    
-//
-//       if(txtFNombre.getText().isEmpty() || txtFapp.getText().isEmpty() || txtFDireccion.getText().isEmpty() || txtFAltura.getText().isEmpty() || txtFPs.getText().isEmpty() || txtTel.getText().isEmpty() ||
-//          cmbEstado.getSelectedIndex()==0){   
-//           JOptionPane.showMessageDialog(null, "Favor de llenar todos los datos", "Error de introduccion de datos", JOptionPane.ERROR_MESSAGE);       
-//        } else{
-//            try{                
-//        nombre = txtFNombre.getText().trim();
-//        app = txtFapp.getText().trim();
-//        String fechaNac = ((JTextField)date.getDateEditor().getUiComponent()).getText();       
-//        altura =  Float.parseFloat(df.format( Float.parseFloat(txtFAltura.getText().trim())));
-//        peso = Integer.parseInt(txtTel.getText().trim());
-//        ps = Integer.parseInt(txtFPs.getText().trim());
-//        estado =cmbEstado.getItemAt(cmbEstado.getSelectedIndex()).getCodigo();        
-//        Procedimientos.AgregarPokemon(nombre,preevolucion,evolucion,altura,peso,tipo,ps);
-//        JOptionPane.showMessageDialog(null, "Pokémon registrado correctamente");
-//        txtFNombre.setText("");
-//        txtFAltura.setText("");
-//        txtTel.setText("");
-//        txtFApm.setText("");
-//        txtFDireccion.setText("");
-//        txtFPs.setText("");
-//        cmbEstado.setSelectedIndex(0);
-//            } catch (SQLException e){
-//                JOptionPane.showMessageDialog(null, "ERROR " + e.getMessage(), "Error de conexion", JOptionPane.ERROR_MESSAGE);
-//            }
-//       }  
+       String nombre;
+       String app;
+       String apm;
+       String fecNac;
+       String dir;
+       int ciudad;
+       String telefono;   
+       String mensaje;   
+
+       if(txtFNombre.getText().isEmpty() || txtFapp.getText().isEmpty() || txtFDireccion.getText().isEmpty() || txtTel.getText().isEmpty() || 
+               jFechaNac.getDate()==null ||  cmbCiudad.getSelectedIndex()==0 ||  txtFApm.getText().isEmpty()){           
+           JOptionPane.showMessageDialog(null, "Favor de llenar todos los datos", "Error de introduccion de datos", JOptionPane.ERROR_MESSAGE);       
+        } else{
+            try{                
+        nombre = txtFNombre.getText().trim();
+        app = txtFapp.getText().trim();
+        apm= txtFApm.getText().trim(); 
+        Date date = jFechaNac.getDate();
+        long d = date.getTime();
+        java.sql.Date fechaNac = new java.sql.Date(d);
+        telefono =  txtTel.getText().trim();
+        dir = txtFDireccion.getText().trim();       
+        ciudad =cmbCiudad.getItemAt(cmbCiudad.getSelectedIndex()).getCodigo();        
+        mensaje=Procedimientos.AgregarEntrenador(nombre,app,apm,fechaNac,telefono,dir,ciudad);
+        JOptionPane.showMessageDialog(null, mensaje);
+        txtFNombre.setText("");
+        txtFApm.setText("");
+        txtFapp.setText("");
+        txtTel.setText("");   
+        txtFDireccion.setText("");        
+        jFechaNac.setDate(null);
+        cmbCiudad.setSelectedIndex(0);
+            } catch (SQLException e){
+                JOptionPane.showMessageDialog(null, "ERROR " + e.getMessage(), "Error de conexion", JOptionPane.ERROR_MESSAGE);
+            }
+       }  
 
         
         
     }//GEN-LAST:event_btnAgregarActionPerformed
 
-    private void txtFFecNacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFFecNacActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFFecNacActionPerformed
-
     private void cmbCiudadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCiudadActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbCiudadActionPerformed
+
+    private void txtTelKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelKeyTyped
+      Procedimientos.txtTelefonoKeyTyped(evt,txtTel);
+    }//GEN-LAST:event_txtTelKeyTyped
 
     /**
      * @param args the command line arguments
@@ -335,6 +338,7 @@ public class AgregarEntrenador extends javax.swing.JFrame {
     private javax.swing.JButton btnMenu;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JComboBox<Combo> cmbCiudad;
+    private com.toedter.calendar.JDateChooser jFechaNac;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -350,7 +354,6 @@ public class AgregarEntrenador extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JTextField txtFApm;
     private javax.swing.JTextField txtFDireccion;
-    private javax.swing.JTextField txtFFecNac;
     private javax.swing.JTextField txtFNombre;
     private javax.swing.JTextField txtFapp;
     private javax.swing.JTextField txtTel;

@@ -5,6 +5,11 @@
  */
 package interfaz;
 
+import Clases.Procedimientos;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author yarel
@@ -16,7 +21,9 @@ public class ConsultarEntrenador extends javax.swing.JFrame {
      */
     public ConsultarEntrenador() {
         initComponents();
-        this.setLocationRelativeTo(null);
+         this.setResizable(false);	
+             //Que aparezca en medio
+	 this.setLocationRelativeTo(null);
     }
 
     /**
@@ -33,11 +40,11 @@ public class ConsultarEntrenador extends javax.swing.JFrame {
         btnBuscar = new javax.swing.JButton();
         btnRegresar = new javax.swing.JButton();
         btnMenu = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTableEntrenador = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -48,20 +55,25 @@ public class ConsultarEntrenador extends javax.swing.JFrame {
         getContentPane().setLayout(null);
 
         jLabel1.setFont(new java.awt.Font("Century Gothic", 1, 16)); // NOI18N
-        jLabel1.setText("idEntrenador:");
+        jLabel1.setText("Nombre entrenador:");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(280, 30, 110, 21);
+        jLabel1.setBounds(270, 40, 160, 21);
 
         txtFIdEntrenador.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         getContentPane().add(txtFIdEntrenador);
-        txtFIdEntrenador.setBounds(390, 30, 180, 30);
+        txtFIdEntrenador.setBounds(430, 30, 180, 30);
 
         btnBuscar.setBackground(java.awt.Color.orange);
         btnBuscar.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         btnBuscar.setForeground(new java.awt.Color(102, 62, 0));
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnBuscar);
-        btnBuscar.setBounds(580, 60, 73, 23);
+        btnBuscar.setBounds(620, 60, 73, 23);
 
         btnRegresar.setBackground(java.awt.Color.orange);
         btnRegresar.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
@@ -87,9 +99,25 @@ public class ConsultarEntrenador extends javax.swing.JFrame {
         getContentPane().add(btnMenu);
         btnMenu.setBounds(560, 340, 80, 23);
 
+        jTableEntrenador.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane2.setViewportView(jTableEntrenador);
+
+        getContentPane().add(jScrollPane2);
+        jScrollPane2.setBounds(350, 100, 330, 170);
+
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/BotonBuscar.png"))); // NOI18N
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(600, 10, 40, 50);
+        jLabel3.setBounds(640, 10, 40, 50);
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/BotonMenu.png"))); // NOI18N
         getContentPane().add(jLabel4);
@@ -98,13 +126,6 @@ public class ConsultarEntrenador extends javax.swing.JFrame {
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/BotonRegresar.png"))); // NOI18N
         getContentPane().add(jLabel5);
         jLabel5.setBounds(430, 290, 50, 50);
-
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
-
-        getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(350, 100, 330, 170);
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/panel1.png"))); // NOI18N
         getContentPane().add(jLabel2);
@@ -134,6 +155,27 @@ public class ConsultarEntrenador extends javax.swing.JFrame {
         actEnt.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnRegresarMouseClicked
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+       try
+       {
+            Procedimientos.limpiarTabla(jTableEntrenador);
+            DefaultTableModel consulta;
+            consulta=Procedimientos.consultarEntrenador(txtFIdEntrenador.getText().trim()); 
+            if(consulta != null){              
+             jTableEntrenador.setModel(consulta);
+            }else{
+               JOptionPane.showMessageDialog(null, "No se encontro resultados", "Error de conexion", JOptionPane.INFORMATION_MESSAGE);
+            }            
+        }
+        catch (SQLException e)
+        {
+            JOptionPane.showMessageDialog(null,"Error " + e.getMessage(), "Error de conexion", JOptionPane.ERROR_MESSAGE);
+        } 
+        
+        
+        
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -181,8 +223,8 @@ public class ConsultarEntrenador extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTableEntrenador;
     private javax.swing.JTextField txtFIdEntrenador;
     // End of variables declaration//GEN-END:variables
 }

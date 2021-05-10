@@ -16,6 +16,9 @@ public class EliminarMedallas extends javax.swing.JFrame {
      */
     public EliminarMedallas() {
         initComponents();
+           this.setResizable(false);	
+             //Que aparezca en medio
+	     this.setLocationRelativeTo(null);
     }
 
     /**

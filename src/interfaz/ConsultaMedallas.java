@@ -18,7 +18,9 @@ public class ConsultaMedallas extends javax.swing.JFrame {
      */
     public ConsultaMedallas() {
         initComponents();
-        
+           this.setResizable(false);	
+             //Que aparezca en medio
+	    this.setLocationRelativeTo(null);
     }
 
     /**

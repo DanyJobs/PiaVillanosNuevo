@@ -16,7 +16,9 @@ public class InsertarMedalla extends javax.swing.JFrame {
      */
     public InsertarMedalla() {
         initComponents();
-        
+           this.setResizable(false);	
+             //Que aparezca en medio
+	     this.setLocationRelativeTo(null);      
         
     }
 

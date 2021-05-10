@@ -16,6 +16,7 @@ public class ActualizarPokemon extends javax.swing.JFrame {
      */
     public ActualizarPokemon() {
        initComponents();
+        this.setLocationRelativeTo(null);
        
     }
 
@@ -49,6 +50,7 @@ public class ActualizarPokemon extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(710, 410));
         setPreferredSize(new java.awt.Dimension(710, 410));
+        setResizable(false);
         getContentPane().setLayout(null);
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/BotonMenu.png"))); // NOI18N
@@ -62,6 +64,11 @@ public class ActualizarPokemon extends javax.swing.JFrame {
         txtAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtAgregarMouseClicked(evt);
+            }
+        });
+        txtAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtAgregarActionPerformed(evt);
             }
         });
         getContentPane().add(txtAgregar);
@@ -187,6 +194,10 @@ public class ActualizarPokemon extends javax.swing.JFrame {
         pantPrincipal.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_txtMenuMouseClicked
+
+    private void txtAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAgregarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAgregarActionPerformed
 
     /**
      * @param args the command line arguments

@@ -16,6 +16,7 @@ public class Candidatos extends javax.swing.JFrame {
      */
     public Candidatos() {
         initComponents();
+         this.setLocationRelativeTo(null);
     }
 
     /**

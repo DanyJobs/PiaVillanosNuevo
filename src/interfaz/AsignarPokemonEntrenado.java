@@ -5,6 +5,13 @@
  */
 package interfaz;
 
+import Clases.Combo;
+import Clases.Procedimientos;
+import java.sql.SQLException;
+import java.text.DecimalFormat;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Andrea
@@ -16,9 +23,30 @@ public class AsignarPokemonEntrenado extends javax.swing.JFrame {
      */
     public AsignarPokemonEntrenado() {
        initComponents();
+       Combo llenar = new Combo();       
+      llenar.llenar_combo(cmbEntrenador,"SELECT * FROM EntrenadorNombre","idEntrenador","Nombre Completo");
+      llenar.llenar_combo(cmbPokemon,"SELECT * FROM Pokemon","idPokemon","Nombre");
+      LlenarTabla();
+      this.setLocationRelativeTo(null);
        
     }
-
+    public void LlenarTabla(){
+      try
+       {           
+            DefaultTableModel consulta;
+            consulta=Procedimientos.consultarAsfignarEntrenador(); 
+            if(consulta != null){              
+             jTableEntrenador.setModel(consulta);
+            }else{
+               JOptionPane.showMessageDialog(null, "No se encontro resultados", "Error de conexion", JOptionPane.INFORMATION_MESSAGE);
+            }            
+        }
+        catch (SQLException e)
+        {
+            JOptionPane.showMessageDialog(null,"Error " + e.getMessage(), "Error de conexion", JOptionPane.ERROR_MESSAGE);
+        } 
+    
+    }
    
     
     /**
@@ -30,16 +58,16 @@ public class AsignarPokemonEntrenado extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableEntrenador = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtFEntrenador = new javax.swing.JTextField();
-        txtFPokemon = new javax.swing.JTextField();
+        cmbEntrenador = new javax.swing.JComboBox<>();
+        cmbPokemon = new javax.swing.JComboBox<>();
         btnAsignar = new javax.swing.JButton();
         btnMenu = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
         jLabel4 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -49,6 +77,22 @@ public class AsignarPokemonEntrenado extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(715, 410));
         getContentPane().setLayout(null);
 
+        jTableEntrenador.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane1.setViewportView(jTableEntrenador);
+
+        getContentPane().add(jScrollPane1);
+        jScrollPane1.setBounds(70, 130, 240, 170);
+
         jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 16)); // NOI18N
         jLabel2.setText("Entrenador:");
         getContentPane().add(jLabel2);
@@ -57,20 +101,37 @@ public class AsignarPokemonEntrenado extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Century Gothic", 1, 16)); // NOI18N
         jLabel3.setText("Pokemon:");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(60, 80, 100, 21);
+        jLabel3.setBounds(60, 90, 100, 21);
 
-        txtFEntrenador.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        getContentPane().add(txtFEntrenador);
-        txtFEntrenador.setBounds(160, 50, 210, 25);
+        cmbEntrenador.setFont(new java.awt.Font("Century Gothic", 1, 11)); // NOI18N
+        cmbEntrenador.setInheritsPopupMenu(true);
+        cmbEntrenador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbEntrenadorActionPerformed(evt);
+            }
+        });
+        getContentPane().add(cmbEntrenador);
+        cmbEntrenador.setBounds(170, 40, 170, 30);
 
-        txtFPokemon.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        getContentPane().add(txtFPokemon);
-        txtFPokemon.setBounds(160, 80, 210, 25);
+        cmbPokemon.setFont(new java.awt.Font("Century Gothic", 1, 11)); // NOI18N
+        cmbPokemon.setInheritsPopupMenu(true);
+        cmbPokemon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbPokemonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(cmbPokemon);
+        cmbPokemon.setBounds(170, 80, 170, 30);
 
         btnAsignar.setBackground(java.awt.Color.orange);
         btnAsignar.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         btnAsignar.setForeground(new java.awt.Color(102, 62, 0));
         btnAsignar.setText("Asignar");
+        btnAsignar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAsignarActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnAsignar);
         btnAsignar.setBounds(330, 190, 80, 25);
 
@@ -94,13 +155,6 @@ public class AsignarPokemonEntrenado extends javax.swing.JFrame {
         getContentPane().add(jLabel6);
         jLabel6.setBounds(350, 130, 50, 50);
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
-
-        getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(70, 130, 240, 180);
-
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/panel1.png"))); // NOI18N
         getContentPane().add(jLabel4);
         jLabel4.setBounds(60, 120, 260, 200);
@@ -121,8 +175,44 @@ public class AsignarPokemonEntrenado extends javax.swing.JFrame {
         PantallaPrincipal pantPrincipal= new PantallaPrincipal();
         pantPrincipal.setVisible(true);
         this.dispose();
+        
     }//GEN-LAST:event_btnMenuMouseClicked
 
+    private void cmbEntrenadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEntrenadorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbEntrenadorActionPerformed
+
+    private void cmbPokemonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPokemonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbPokemonActionPerformed
+
+    private void btnAsignarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarActionPerformed
+       String mensaje;
+       int entrenador;
+       int pokemon;   
+
+       if(cmbEntrenador.getSelectedIndex()==0||cmbPokemon.getSelectedIndex()==0){   
+           JOptionPane.showMessageDialog(null, "Favor de llenar todos los datos", "Error de introduccion de datos", JOptionPane.ERROR_MESSAGE);       
+        } else{
+            try{                
+        pokemon =  cmbPokemon.getItemAt(cmbPokemon.getSelectedIndex()).getCodigo();
+        entrenador =cmbEntrenador.getItemAt(cmbEntrenador.getSelectedIndex()).getCodigo();        
+        mensaje=Procedimientos.AsignarPokemonEntrenador(entrenador,pokemon);
+        JOptionPane.showMessageDialog(null, mensaje);
+        cmbPokemon.setSelectedIndex(0);
+        cmbEntrenador.setSelectedIndex(0); 
+        LlenarTabla();
+            } catch (SQLException e){
+                JOptionPane.showMessageDialog(null, "ERROR " + e.getMessage(), "Error de conexion", JOptionPane.ERROR_MESSAGE);
+            }
+       } 
+
+    }//GEN-LAST:event_btnAsignarActionPerformed
+
+   
+
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -170,6 +260,8 @@ public class AsignarPokemonEntrenado extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAsignar;
     private javax.swing.JButton btnMenu;
+    private javax.swing.JComboBox<Combo> cmbEntrenador;
+    private javax.swing.JComboBox<Combo> cmbPokemon;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -178,8 +270,6 @@ public class AsignarPokemonEntrenado extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField txtFEntrenador;
-    private javax.swing.JTextField txtFPokemon;
+    private javax.swing.JTable jTableEntrenador;
     // End of variables declaration//GEN-END:variables
 }

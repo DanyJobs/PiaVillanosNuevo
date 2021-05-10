@@ -23,6 +23,9 @@ public class ModificarPokemon extends javax.swing.JFrame {
      */
     public ModificarPokemon() {
         initComponents();
+           this.setResizable(false);	
+             //Que aparezca en medio
+	     this.setLocationRelativeTo(null);
         Combo llenar = new Combo();
         llenar.llenar_combo(cmbTipo, "Select * from TipoPokemon", "IdTipoPoke", "nombre");
     }
@@ -262,11 +265,7 @@ public class ModificarPokemon extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegresarMouseClicked
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        String vDato = txtFIdPokemon.getText().trim();
-        int indice;
-        String co;
-        Combo llenar = new Combo();
-        int tipo = cmbTipo.getItemAt(cmbTipo.getSelectedIndex()).getCodigo();
+        String vDato = txtFIdPokemon.getText().trim(); 
         if (vDato.equals("")) {
             JOptionPane.showMessageDialog(null, "Favor de llenar todos los datos", "Error de introduccion de datos", JOptionPane.ERROR_MESSAGE);
         } else {
@@ -293,8 +292,6 @@ public class ModificarPokemon extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "ERROR " + e.getMessage(), "Error de conexion", JOptionPane.ERROR_MESSAGE);
             }
         }
-
-
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed

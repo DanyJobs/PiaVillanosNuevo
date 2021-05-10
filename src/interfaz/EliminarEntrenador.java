@@ -5,6 +5,11 @@
  */
 package interfaz;
 
+import Clases.Procedimientos;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author yarel
@@ -16,7 +21,9 @@ public class EliminarEntrenador extends javax.swing.JFrame {
      */
     public EliminarEntrenador() {
         initComponents();
-        this.setLocationRelativeTo(null);
+           this.setResizable(false);	
+             //Que aparezca en medio
+	     this.setLocationRelativeTo(null);
     }
 
     /**
@@ -34,12 +41,12 @@ public class EliminarEntrenador extends javax.swing.JFrame {
         btnMenu = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnRegresar = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTableEntrenador = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
         jLabel4 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -62,6 +69,11 @@ public class EliminarEntrenador extends javax.swing.JFrame {
         btnBuscar.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         btnBuscar.setForeground(new java.awt.Color(102, 62, 0));
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnBuscar);
         btnBuscar.setBounds(590, 60, 73, 23);
 
@@ -81,6 +93,11 @@ public class EliminarEntrenador extends javax.swing.JFrame {
         btnEliminar.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         btnEliminar.setForeground(new java.awt.Color(102, 62, 0));
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnEliminar);
         btnEliminar.setBounds(370, 340, 80, 23);
 
@@ -95,6 +112,22 @@ public class EliminarEntrenador extends javax.swing.JFrame {
         });
         getContentPane().add(btnRegresar);
         btnRegresar.setBounds(590, 340, 90, 23);
+
+        jTableEntrenador.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane2.setViewportView(jTableEntrenador);
+
+        getContentPane().add(jScrollPane2);
+        jScrollPane2.setBounds(340, 110, 330, 150);
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/BotonBuscar.png"))); // NOI18N
         getContentPane().add(jLabel2);
@@ -112,16 +145,9 @@ public class EliminarEntrenador extends javax.swing.JFrame {
         getContentPane().add(jLabel7);
         jLabel7.setBounds(610, 280, 50, 50);
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
-
-        getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(360, 110, 310, 150);
-
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/panel1.png"))); // NOI18N
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(350, 100, 330, 170);
+        jLabel4.setBounds(330, 100, 350, 170);
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/d3452637 (1).gif"))); // NOI18N
         getContentPane().add(jLabel8);
@@ -147,6 +173,44 @@ public class EliminarEntrenador extends javax.swing.JFrame {
         actEnt.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnRegresarMouseClicked
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+     try {
+            Procedimientos.limpiarTabla(jTableEntrenador);
+            DefaultTableModel consulta;
+            consulta = Procedimientos.consultarEntrenadorById(Integer.parseInt(txtFIdEntrenador.getText().trim()));
+            if (consulta != null) {
+                jTableEntrenador.setModel(consulta);
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontro resultados", "Error de conexion", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error " + e.getMessage(), "Error de conexion", JOptionPane.ERROR_MESSAGE);
+        }       
+        
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        String Mensaje = "";
+        try {
+            if (!txtFIdEntrenador.getText().equals("")) {
+                int IdEntrenador= Integer.parseInt(txtFIdEntrenador.getText());
+                int confirmado = JOptionPane.showConfirmDialog(null, "¿Seguro que quieres eliminarlo?");
+                if (JOptionPane.OK_OPTION == confirmado) {
+                    Procedimientos.limpiarTabla(jTableEntrenador);
+                    txtFIdEntrenador.setText("");
+                    Mensaje = Procedimientos.EliminarEntrenador(IdEntrenador);
+                    JOptionPane.showMessageDialog(null, Mensaje);
+
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Debes introducir un id", "Error", JOptionPane.INFORMATION_MESSAGE);
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "ERROR " + e.getMessage(), "Error de conexion", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -196,8 +260,8 @@ public class EliminarEntrenador extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTableEntrenador;
     private javax.swing.JTextField txtFIdEntrenador;
     // End of variables declaration//GEN-END:variables
 }

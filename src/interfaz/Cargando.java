@@ -18,8 +18,9 @@ public class Cargando extends javax.swing.JFrame {
      * Creates new form Cargando
      */
     public Cargando() {
-        
-      
+        initComponents();
+       this.setLocationRelativeTo(null);
+     
      
     }
 
@@ -36,18 +37,18 @@ public class Cargando extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(515, 360));
+        setMinimumSize(new java.awt.Dimension(200, 200));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(515, 360));
-        getContentPane().setLayout(null);
+        setPreferredSize(new java.awt.Dimension(452, 310));
+        setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/12.gif"))); // NOI18N
-        getContentPane().add(jLabel2);
-        jLabel2.setBounds(110, 30, 240, 170);
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 30, 240, 170));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cielo.png"))); // NOI18N
-        getContentPane().add(jLabel3);
-        jLabel3.setBounds(0, 0, 500, 320);
+        jLabel3.setPreferredSize(new java.awt.Dimension(600, 400));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 450, 320));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

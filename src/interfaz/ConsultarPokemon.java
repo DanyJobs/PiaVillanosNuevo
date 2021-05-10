@@ -23,6 +23,9 @@ public class ConsultarPokemon extends javax.swing.JFrame {
      */
     public ConsultarPokemon() {
        initComponents();    
+       this.setResizable(false);	
+             //Que aparezca en medio
+	this.setLocationRelativeTo(null);
  
     }
 
@@ -68,7 +71,7 @@ public class ConsultarPokemon extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(660, 400));
-        setPreferredSize(new java.awt.Dimension(660, 400));
+        setPreferredSize(new java.awt.Dimension(713, 368));
         getContentPane().setLayout(null);
 
         txtFIdPokemon.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
@@ -154,6 +157,7 @@ public class ConsultarPokemon extends javax.swing.JFrame {
         jLabel6.setBounds(310, 80, 380, 180);
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/05ConsultarPokemon.png"))); // NOI18N
+        jLabel7.setPreferredSize(new java.awt.Dimension(700, 400));
         getContentPane().add(jLabel7);
         jLabel7.setBounds(0, 0, 700, 360);
 
@@ -174,22 +178,11 @@ public class ConsultarPokemon extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnRegresarMouseClicked
 
-    public void limpiarTabla(JTable tabla) {
-        try {
-           DefaultTableModel tb = (DefaultTableModel) tabla.getModel();
-        int a = tabla.getRowCount()-1;
-        for (int i = a; i >= 0; i--) {          
-        tb.removeRow(tb.getRowCount()-1);
-        }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
-        }
-    }
-    
+      
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
       try
        {
-            limpiarTabla(jTable2);
+            Procedimientos.limpiarTabla(jTable2);
             DefaultTableModel consulta;
             consulta=Procedimientos.consultarPokemon(txtFIdPokemon.getText().trim()); 
             if(consulta != null){              

@@ -16,6 +16,9 @@ public class InterfazActualizarMedalla extends javax.swing.JFrame {
      */
     public InterfazActualizarMedalla() {
         initComponents();
+           this.setResizable(false);	
+             //Que aparezca en medio
+	     this.setLocationRelativeTo(null);
     }
 
     /**

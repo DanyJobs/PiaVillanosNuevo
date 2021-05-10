@@ -16,6 +16,9 @@ public class Entrenador_Tipo_Pokemon extends javax.swing.JFrame {
      */
     public Entrenador_Tipo_Pokemon() {
         initComponents();
+           this.setResizable(false);	
+             //Que aparezca en medio
+	     this.setLocationRelativeTo(null);
     }
 
     /**

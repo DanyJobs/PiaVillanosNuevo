@@ -5,6 +5,11 @@
  */
 package interfaz;
 
+import Clases.Procedimientos;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Andrea
@@ -15,13 +20,13 @@ public class EliminarPokemon extends javax.swing.JFrame {
      * Creates new form ConsultaMedallas
      */
     public EliminarPokemon() {
-       initComponents();
-       
- 
+        initComponents();
+           this.setResizable(false);	
+             //Que aparezca en medio
+	     this.setLocationRelativeTo(null);
+
     }
 
-   
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -42,8 +47,8 @@ public class EliminarPokemon extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTablaResultado = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -59,6 +64,16 @@ public class EliminarPokemon extends javax.swing.JFrame {
         jLabel1.setBounds(30, 40, 110, 20);
 
         txtFIdPokemon.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        txtFIdPokemon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFIdPokemonActionPerformed(evt);
+            }
+        });
+        txtFIdPokemon.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtFIdPokemonKeyTyped(evt);
+            }
+        });
         getContentPane().add(txtFIdPokemon);
         txtFIdPokemon.setBounds(130, 40, 180, 30);
 
@@ -70,6 +85,11 @@ public class EliminarPokemon extends javax.swing.JFrame {
         btnEliminar.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         btnEliminar.setForeground(new java.awt.Color(102, 62, 0));
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnEliminar);
         btnEliminar.setBounds(320, 150, 80, 25);
 
@@ -77,6 +97,11 @@ public class EliminarPokemon extends javax.swing.JFrame {
         btnBuscar.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         btnBuscar.setForeground(new java.awt.Color(102, 62, 0));
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnBuscar);
         btnBuscar.setBounds(320, 50, 80, 25);
 
@@ -116,12 +141,21 @@ public class EliminarPokemon extends javax.swing.JFrame {
         getContentPane().add(jLabel6);
         jLabel6.setBounds(340, 270, 50, 50);
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        jTablaResultado.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
 
-        getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(30, 110, 270, 220);
+            }
+        ));
+        jScrollPane2.setViewportView(jTablaResultado);
+
+        getContentPane().add(jScrollPane2);
+        jScrollPane2.setBounds(30, 120, 270, 180);
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/panel1.png"))); // NOI18N
         getContentPane().add(jLabel2);
@@ -140,17 +174,62 @@ public class EliminarPokemon extends javax.swing.JFrame {
 
     private void btnMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMenuMouseClicked
         // TODO add your handling code here:
-        PantallaPrincipal pantPrincipal= new PantallaPrincipal();
+        PantallaPrincipal pantPrincipal = new PantallaPrincipal();
         pantPrincipal.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnMenuMouseClicked
 
     private void btnRegresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegresarMouseClicked
         // TODO add your handling code here:
-        ActualizarPokemon actPoke= new ActualizarPokemon();
+        ActualizarPokemon actPoke = new ActualizarPokemon();
         actPoke.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnRegresarMouseClicked
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        try {
+            Procedimientos.limpiarTabla(jTablaResultado);
+            DefaultTableModel consulta;
+            consulta = Procedimientos.consultarPokemonById(Integer.parseInt(txtFIdPokemon.getText().trim()));
+            if (consulta != null) {
+                jTablaResultado.setModel(consulta);
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontro resultados", "Error de conexion", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error " + e.getMessage(), "Error de conexion", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void txtFIdPokemonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFIdPokemonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFIdPokemonActionPerformed
+
+    private void txtFIdPokemonKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFIdPokemonKeyTyped
+        Procedimientos.txtNumeroKeyTyped(evt, txtFIdPokemon);
+    }//GEN-LAST:event_txtFIdPokemonKeyTyped
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        String Mensaje = "";
+        try {
+            if(!txtFIdPokemon.getText().equals("")){
+            int IdPokemon = Integer.parseInt(txtFIdPokemon.getText());            
+            int confirmado = JOptionPane.showConfirmDialog(null,"¿Seguro que quieres eliminarlo?");
+            if (JOptionPane.OK_OPTION == confirmado) {
+              Procedimientos.limpiarTabla(jTablaResultado);
+              txtFIdPokemon.setText("");
+               Mensaje = Procedimientos.EliminarPokemon(IdPokemon);               
+               JOptionPane.showMessageDialog(null, Mensaje);
+               
+            }
+            }else{
+             JOptionPane.showMessageDialog(null, "Debes introducir un id", "Error", JOptionPane.INFORMATION_MESSAGE);
+            }           
+           
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "ERROR " + e.getMessage(), "Error de conexion", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -186,8 +265,6 @@ public class EliminarPokemon extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
 
- 
-
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -209,8 +286,8 @@ public class EliminarPokemon extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTablaResultado;
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField txtFIdPokemon;
     // End of variables declaration//GEN-END:variables
